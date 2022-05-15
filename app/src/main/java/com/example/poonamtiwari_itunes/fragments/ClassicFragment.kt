@@ -99,7 +99,7 @@ class ClassicFragment : Fragment() {
                                 "Classic",
                                 list1.get(i).artistName,
                                 list1.get(i).collectionName,
-                                list1.get(i).artworkUrl60,
+                                list1.get(i).artworkUrl100,
                                 list1.get(i).trackPrice.toString(),
                                 list1.get(i).previewUrl
                             )
