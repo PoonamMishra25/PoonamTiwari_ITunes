@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.poonamtiwari_itunes.R
 import com.example.poonamtiwari_itunes.SongDetails
 import com.example.poonamtiwari_itunes.model.DBModel
-import com.example.poonamtiwari_itunes.model.Result
 
 import com.squareup.picasso.Picasso
 

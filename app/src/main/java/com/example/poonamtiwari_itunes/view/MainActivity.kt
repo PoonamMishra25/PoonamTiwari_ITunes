@@ -81,12 +81,7 @@ class MainActivity : AppCompatActivity() {
                     //Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
                     return true
                 }
-//                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-//                    Toast.makeText(context, "NetworkCapabilities.TRANSPORT_WIFI", Toast.LENGTH_LONG)
-//                        .show()
-//                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-//                    return true
-//                }
+
             }
             Toast.makeText(context, "Please Check your Internet Connection!", Toast.LENGTH_LONG)
                 .show()

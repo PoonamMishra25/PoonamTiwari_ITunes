@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 import com.example.poonamtiwari_itunes.R
-import com.example.poonamtiwari_itunes.api.ApiService
 import com.example.poonamtiwari_itunes.api.ApiServiceClassic
 import com.example.poonamtiwari_itunes.database.DatabseHelper
+import com.example.poonamtiwari_itunes.model.PopMusicModel
+import com.example.poonamtiwari_itunes.model.Result1
+import com.example.poonamtiwari_itunes.model.ResultXX1
 
 import com.example.poonamtiwari_itunes.model.RockMusicModel
-import com.example.poonamtiwari_itunes.model.Result
 import com.example.poonamtiwari_itunes.view.MainActivity
 
 import com.example.poonamtiwari_itunes.view.RockMusicAdapter
@@ -63,6 +64,7 @@ class RockFragment : Fragment() {
         rvrock.layoutManager = LinearLayoutManager(activity)
 
         // startRetrofit(db)
+        restoreData()
         val listROCK = db.retrivePopMusic("Rock")
         musicAdapter1 = RockMusicAdapter(listROCK)
         rvrock.adapter = musicAdapter1
@@ -82,7 +84,7 @@ class RockFragment : Fragment() {
         db: DatabseHelper)
 
        {
-        var list1: List<Result>
+        var list1: List<Result1>
         ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getRockMusic()
             .enqueue(object : Callback<RockMusicModel> {
 
@@ -113,6 +115,29 @@ class RockFragment : Fragment() {
 
                 override fun onFailure(call: Call<RockMusicModel>, t: Throwable) {
                     Toast.makeText(activity, t.message, Toast.LENGTH_LONG).show()
+                }
+
+            })
+    }
+    fun restoreData() {
+        var list1: List<Result1>
+        ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getRockMusic()
+            .enqueue(object : Callback<RockMusicModel> {
+
+                override fun onResponse(
+                    call: Call<RockMusicModel>,
+                    response: Response<RockMusicModel>
+                ) {
+                    if (response.isSuccessful) {
+                        list1 = response.body()!!.results
+                    }
+
+                }
+
+
+
+                override fun onFailure(call: Call<RockMusicModel>, t: Throwable) {
+                    Toast.makeText(activity, "Error Occurred! " + t.message, Toast.LENGTH_LONG).show()
                 }
 
             })

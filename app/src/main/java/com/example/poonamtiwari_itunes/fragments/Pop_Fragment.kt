@@ -12,11 +12,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.poonamtiwari_itunes.R
 import com.example.poonamtiwari_itunes.api.ApiServiceClassic
 import com.example.poonamtiwari_itunes.database.DatabseHelper
-import com.example.poonamtiwari_itunes.model.ClassicMusicModel
 import com.example.poonamtiwari_itunes.model.PopMusicModel
-import com.example.poonamtiwari_itunes.model.ResultX
-import com.example.poonamtiwari_itunes.model.ResultXX
-import com.example.poonamtiwari_itunes.view.ClassicMusicAdapter
+import com.example.poonamtiwari_itunes.model.ResultXX1
 import com.example.poonamtiwari_itunes.view.MainActivity
 import com.example.poonamtiwari_itunes.view.PopMusicAdapter
 import retrofit2.Call
@@ -34,6 +31,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class Pop_Fragment : Fragment() {
+
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -44,6 +43,7 @@ class Pop_Fragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+       // startRetrofitpop(db )
     }
 
     override fun onCreateView(
@@ -57,7 +57,7 @@ class Pop_Fragment : Fragment() {
         val db:DatabseHelper= DatabseHelper(requireContext())
 
         rvPop.layoutManager= LinearLayoutManager(activity)
-
+restoreData()
         val listPop=db.retrivePopMusic("Pop")
         musicAdapter2 = PopMusicAdapter(listPop)
         rvPop.adapter = musicAdapter2
@@ -79,7 +79,7 @@ class Pop_Fragment : Fragment() {
         db: DatabseHelper
 
     ) {
-        var list1: List<ResultXX> //= ArrayList()
+        var list1: List<ResultXX1> //= ArrayList()
         ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getPopMusic()
             .enqueue(object : Callback<PopMusicModel> {
 
@@ -113,7 +113,27 @@ class Pop_Fragment : Fragment() {
 
             })
     }
+fun restoreData() {
+    var list1: List<ResultXX1>
+    ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getPopMusic()
+        .enqueue(object : Callback<PopMusicModel> {
 
+            override fun onResponse(
+                call: Call<PopMusicModel>,
+                response: Response<PopMusicModel>
+            ) {
+                if (response.isSuccessful) {
+                    list1 = response.body()!!.results
+                }
+
+            }
+
+            override fun onFailure(call: Call<PopMusicModel>, t: Throwable) {
+                Toast.makeText(activity, "Error Occurred! " + t.message, Toast.LENGTH_LONG).show()
+            }
+
+        })
+}
     companion object {
         /**
          * Use this factory method to create a new instance of

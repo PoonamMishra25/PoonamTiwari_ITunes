@@ -6,7 +6,6 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.poonamtiwari_itunes.model.DBModel
-import com.example.poonamtiwari_itunes.model.ResultXX
 
 class DatabseHelper(context:Context):SQLiteOpenHelper(
     context,DATABASE_NAME,null,DATABAE_VERSION)

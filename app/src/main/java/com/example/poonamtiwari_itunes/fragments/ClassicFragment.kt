@@ -13,7 +13,10 @@ import com.example.poonamtiwari_itunes.R
 import com.example.poonamtiwari_itunes.api.ApiServiceClassic
 import com.example.poonamtiwari_itunes.database.DatabseHelper
 import com.example.poonamtiwari_itunes.model.ClassicMusicModel
-import com.example.poonamtiwari_itunes.model.ResultX
+import com.example.poonamtiwari_itunes.model.PopMusicModel
+
+import com.example.poonamtiwari_itunes.model.ResultX1
+import com.example.poonamtiwari_itunes.model.ResultXX1
 import com.example.poonamtiwari_itunes.view.ClassicMusicAdapter
 import com.example.poonamtiwari_itunes.view.MainActivity
 
@@ -60,7 +63,7 @@ class ClassicFragment : Fragment() {
 
       //  var list: List<ResultX> = ArrayList()
         recyclerClassic.layoutManager=LinearLayoutManager(activity)
-
+        restoreData()
         val listClassic=db.retrivePopMusic("Classic")
         musicAdapter = ClassicMusicAdapter(listClassic)
         recyclerClassic.adapter = musicAdapter
@@ -81,7 +84,7 @@ class ClassicFragment : Fragment() {
         db: DatabseHelper
 
     ) {
-        var list1: List<ResultX>
+        var list1: List<ResultX1>
         ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getClassicMusic()
             .enqueue(object : Callback<ClassicMusicModel> {
 
@@ -113,6 +116,28 @@ class ClassicFragment : Fragment() {
                 override fun onFailure(call: Call<ClassicMusicModel>, t: Throwable) {
                     Toast.makeText(activity, "Error Occurred! " + t.message, Toast.LENGTH_LONG)
                         .show()
+                }
+
+            })
+    }
+    fun restoreData() {
+        var list1: List<ResultX1>
+        ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getClassicMusic()
+            .enqueue(object : Callback<ClassicMusicModel> {
+
+                override fun onResponse(
+                    call: Call<ClassicMusicModel>,
+                    response: Response<ClassicMusicModel>
+                ) {
+                    if (response.isSuccessful) {
+                        list1 = response.body()!!.results
+                    }
+
+                }
+
+
+                override fun onFailure(call: Call<ClassicMusicModel>, t: Throwable) {
+                     Toast.makeText(activity, "Error Occurred! " + t.message, Toast.LENGTH_LONG).show()
                 }
 
             })
