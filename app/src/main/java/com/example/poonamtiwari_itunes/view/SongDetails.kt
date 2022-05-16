@@ -1,9 +1,10 @@
-package com.example.poonamtiwari_itunes
+package com.example.poonamtiwari_itunes.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.poonamtiwari_itunes.R
 import com.squareup.picasso.Picasso
 
 class SongDetails : AppCompatActivity() {

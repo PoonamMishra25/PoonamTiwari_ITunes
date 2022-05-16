@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.poonamtiwari_itunes.R
-import com.example.poonamtiwari_itunes.SongDetails
 import com.example.poonamtiwari_itunes.model.DBModel
 
 import com.squareup.picasso.Picasso
@@ -34,7 +33,11 @@ class ClassicMusicAdapter(private val list: List<DBModel>) :
 
             tvCollectionName.text = result.collectionName
             tvArtistName.text = result.artistName
-            tvPrice.text = result.trackPrice.toString()
+            if(result.trackPrice>=0){
+            tvPrice.text = result.trackPrice.toString()}
+            else{
+                tvPrice.text="0.0"
+            }
             Picasso.get()
                 .load(result.artworkUrl60)
                 .placeholder(R.drawable.ic_launcher_foreground)
@@ -47,7 +50,7 @@ class ClassicMusicAdapter(private val list: List<DBModel>) :
                 } else {
                     MainActivity.makeToastmsg("No Internet!", context)
                 }
-                val intent= Intent(context,SongDetails::class.java)
+                val intent= Intent(context, SongDetails::class.java)
                 val bundle =Bundle()
                 bundle.putString("KEY",result.artworkUrl60)
                 bundle.putString("c_name",result.collectionName)
