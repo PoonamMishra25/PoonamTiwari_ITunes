@@ -6,7 +6,6 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.poonamtiwari_itunes.model.DBModel
-import com.example.poonamtiwari_itunes.model.ResultXX
 
 class DatabseHelper(context:Context):SQLiteOpenHelper(
     context,DATABASE_NAME,null,DATABAE_VERSION)
@@ -92,18 +91,18 @@ class DatabseHelper(context:Context):SQLiteOpenHelper(
                 }
 
     }
-fun countAll(songType:String):Int{
-    var totalCount:Int=0
-    val db=this.readableDatabase
-    val query ="select count(*) from "+ Table_name+" where SongType = '"+ songType+"'"
-    val cursor:Cursor
-    cursor =db.rawQuery(query,null)
-    if(cursor.moveToFirst()) {
-        do {
-           totalCount++
-        } while (cursor.moveToNext())
-    }
-    return totalCount
-}
+//fun countAll(songType:String):Int{
+//    var totalCount:Int=0
+//    val db=this.readableDatabase
+//    val query ="select count(*) from "+ Table_name+" where SongType = '"+ songType+"'"
+//    val cursor:Cursor
+//    cursor =db.rawQuery(query,null)
+//    if(cursor.moveToFirst()) {
+//        do {
+//           totalCount++
+//        } while (cursor.moveToNext())
+//    }
+//    return totalCount
+//}
 
 }

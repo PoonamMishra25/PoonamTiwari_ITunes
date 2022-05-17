@@ -13,7 +13,7 @@ import com.example.poonamtiwari_itunes.R
 import com.example.poonamtiwari_itunes.api.ApiServiceClassic
 import com.example.poonamtiwari_itunes.database.DatabseHelper
 import com.example.poonamtiwari_itunes.model.ClassicMusicModel
-import com.example.poonamtiwari_itunes.model.ResultX
+import com.example.poonamtiwari_itunes.model.ResultX1
 import com.example.poonamtiwari_itunes.view.ClassicMusicAdapter
 import com.example.poonamtiwari_itunes.view.MainActivity
 
@@ -81,7 +81,7 @@ class ClassicFragment : Fragment() {
         db: DatabseHelper
 
     ) {
-        var list1: List<ResultX>
+        var list1: List<ResultX1>
         ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getClassicMusic()
             .enqueue(object : Callback<ClassicMusicModel> {
 

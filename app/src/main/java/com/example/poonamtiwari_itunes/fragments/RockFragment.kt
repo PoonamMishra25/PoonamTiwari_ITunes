@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 import com.example.poonamtiwari_itunes.R
-import com.example.poonamtiwari_itunes.api.ApiService
 import com.example.poonamtiwari_itunes.api.ApiServiceClassic
 import com.example.poonamtiwari_itunes.database.DatabseHelper
 
