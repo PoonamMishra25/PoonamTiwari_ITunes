@@ -2,6 +2,7 @@ package com.example.poonamtiwari_itunes.view
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -47,19 +48,26 @@ class MusicAdapter(private val list: List<ResultMusicModel>) :
                 } else {
                     MainActivity.makeToastmsg("No Internet!", context)
                 }
-                val intent= Intent(context, SongDetails::class.java)
-                val bundle =Bundle()
-                bundle.putString("KEY",result.artworkUrl100)
-                bundle.putString("c_name",result.collectionName)
-                bundle.putString("aName",result.artistName)
-                bundle.putString("art",result.artworkUrl100)
-                bundle.putString("price",result.trackPrice.toString())
-                bundle.putString("type",result.trackName)
+                val intent = Intent(context, SongDetails::class.java)
+                val bundle = Bundle()
+                bundle.putString("KEY", result.artworkUrl100)
+                bundle.putString("c_name", result.collectionName)
+                bundle.putString("aName", result.artistName)
+                bundle.putString("art", result.artworkUrl100)
+                bundle.putString("price", result.trackPrice.toString())
+                bundle.putString("type", result.trackName)
                 intent.putExtras(bundle)
                 ContextCompat.startActivity(context, intent, bundle)
-
-
             }
+//                itemView.setOnClickListener {
+//                    val intent = Intent()
+//                    intent.action = Intent.ACTION_VIEW
+//                    intent.setDataAndType(Uri.parse(result.previewUrl), "audio/*")
+//                    itemView.context.startActivity(intent)
+//                }
+
+
+
         }
     }
 

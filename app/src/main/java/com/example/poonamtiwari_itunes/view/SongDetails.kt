@@ -30,14 +30,14 @@ class SongDetails : AppCompatActivity() {
             .into(imageView)
 
 btnPlay.setOnClickListener{
-   val media= MainActivity.mediaPlayer
+
     run {
-        if (media.isPlaying) {
+        if (MainActivity.mediaPlayer.isPlaying) {
             btnPlay.setImageResource(R.drawable.ic_baseline_play_circle_outline_24)
-            media.pause()
+            MainActivity.mediaPlayer.pause()
         }else{
             btnPlay.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24)
-            media.start()
+            MainActivity.mediaPlayer.start()
         }
 
     }
