@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.SongDetails"
-    android:background="#54C4D3">
+    android:background="#A4E8F1">
 
     <ImageView
         android:id="@+id/ivDetailArtView"
