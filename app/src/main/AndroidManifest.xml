@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PoonamTiwari_ITunes">
-        <activity android:name=".SongDetails"
+        <activity android:name=".view.SongDetails"
             android:exported="false"/>
         <activity
             android:name=".view.MainActivity"

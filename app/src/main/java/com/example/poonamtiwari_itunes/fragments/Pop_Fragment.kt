@@ -12,10 +12,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.poonamtiwari_itunes.R
 import com.example.poonamtiwari_itunes.api.ApiServiceClassic
 import com.example.poonamtiwari_itunes.database.DatabseHelper
-import com.example.poonamtiwari_itunes.model.PopMusicModel
-import com.example.poonamtiwari_itunes.model.ResultPop
+import com.example.poonamtiwari_itunes.model.MusicModel
+
+import com.example.poonamtiwari_itunes.model.ResultMusicModel
+
 import com.example.poonamtiwari_itunes.view.MainActivity
-import com.example.poonamtiwari_itunes.view.PopMusicAdapter
+import com.example.poonamtiwari_itunes.view.MusicAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,13 +52,14 @@ class Pop_Fragment : Fragment() {
         val view=inflater.inflate(R.layout.fragment_pop_, container, false)
         val rvPop: RecyclerView =view.findViewById(R.id.rv_pop)
         val swipePop:SwipeRefreshLayout=view.findViewById(R.id.swipe_Pop)
-        val musicAdapter2: PopMusicAdapter
+       // val musicAdapter2: PopMusicAdapter
+        val musicAdapter2:MusicAdapter
         val db:DatabseHelper= DatabseHelper(requireContext())
 
         rvPop.layoutManager= LinearLayoutManager(activity)
 
         val listPop=db.retrivePopMusic("Pop")
-        musicAdapter2 = PopMusicAdapter(listPop)
+        musicAdapter2 = MusicAdapter(listPop)
         rvPop.adapter = musicAdapter2
 //swipe listener
         swipePop.setOnRefreshListener {
@@ -76,13 +79,13 @@ class Pop_Fragment : Fragment() {
         db: DatabseHelper
 
     ) {
-        var list1: List<ResultPop> //= ArrayList()
+        var list1: List<ResultMusicModel> //= ArrayList()
         ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getPopMusic()
-            .enqueue(object : Callback<PopMusicModel> {
+            .enqueue(object : Callback<MusicModel> {
 
                 override fun onResponse(
-                    call: Call<PopMusicModel>,
-                    response: Response<PopMusicModel>
+                    call: Call<MusicModel>,
+                    response: Response<MusicModel>
                 ) {
                     if (response.isSuccessful) {
 
@@ -93,7 +96,7 @@ class Pop_Fragment : Fragment() {
                                 "Pop",
                                 list1.get(i).artistName,
                                 list1.get(i).collectionName,
-                                list1.get(i).artworkUrl60,
+                                list1.get(i).artworkUrl100,
                                 list1.get(i).trackPrice.toString(),
                                 list1.get(i).previewUrl
                             )
@@ -104,7 +107,9 @@ class Pop_Fragment : Fragment() {
 
                 }
 
-                override fun onFailure(call: Call<PopMusicModel>, t: Throwable) {
+
+
+                override fun onFailure(call: Call<MusicModel>, t: Throwable) {
                     Toast.makeText(activity, "Error Occurred! " +t.message, Toast.LENGTH_LONG).show()
                 }
 

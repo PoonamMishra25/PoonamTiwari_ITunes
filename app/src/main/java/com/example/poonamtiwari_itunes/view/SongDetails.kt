@@ -1,9 +1,10 @@
-package com.example.poonamtiwari_itunes
+package com.example.poonamtiwari_itunes.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.poonamtiwari_itunes.R
 import com.squareup.picasso.Picasso
 
 class SongDetails : AppCompatActivity() {
@@ -15,6 +16,7 @@ class SongDetails : AppCompatActivity() {
         val tvArtist: TextView = findViewById(R.id.tvDetailArtist)
         val tvType: TextView = findViewById(R.id.tvDetailTrack)
         val imageView: ImageView = findViewById(R.id.ivDetailArtView)
+        val btnPlay:ImageView=findViewById(R.id.btnImage)
         val bundle: Bundle? =intent.extras
 
         tvArtist.text = bundle?.getString("aName")
@@ -27,6 +29,18 @@ class SongDetails : AppCompatActivity() {
 
             .into(imageView)
 
+btnPlay.setOnClickListener{
+   val media= MainActivity.mediaPlayer
+    run {
+        if (media.isPlaying) {
+            btnPlay.setImageResource(R.drawable.ic_baseline_play_circle_outline_24)
+            media.pause()
+        }else{
+            btnPlay.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24)
+            media.start()
+        }
 
+    }
+}
     }
 }

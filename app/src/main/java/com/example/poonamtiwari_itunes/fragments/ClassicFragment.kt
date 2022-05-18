@@ -12,10 +12,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.poonamtiwari_itunes.R
 import com.example.poonamtiwari_itunes.api.ApiServiceClassic
 import com.example.poonamtiwari_itunes.database.DatabseHelper
-import com.example.poonamtiwari_itunes.model.ClassicMusicModel
-import com.example.poonamtiwari_itunes.model.ResultX1
-import com.example.poonamtiwari_itunes.view.ClassicMusicAdapter
+
+import com.example.poonamtiwari_itunes.model.MusicModel
+import com.example.poonamtiwari_itunes.model.ResultMusicModel
+
 import com.example.poonamtiwari_itunes.view.MainActivity
+import com.example.poonamtiwari_itunes.view.MusicAdapter
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -56,13 +58,13 @@ class ClassicFragment : Fragment() {
          val recyclerClassic:RecyclerView=view.findViewById(R.id.rv_classic)
         val swipeClassic:SwipeRefreshLayout=view.findViewById(R.id.swipe_Classic)
         val db = DatabseHelper(requireContext())
-      val musicAdapter: ClassicMusicAdapter
+      val musicAdapter: MusicAdapter
 
       //  var list: List<ResultX> = ArrayList()
         recyclerClassic.layoutManager=LinearLayoutManager(activity)
 
         val listClassic=db.retrivePopMusic("Classic")
-        musicAdapter = ClassicMusicAdapter(listClassic)
+        musicAdapter = MusicAdapter(listClassic)
         recyclerClassic.adapter = musicAdapter
 
         swipeClassic.setOnRefreshListener {
@@ -81,13 +83,13 @@ class ClassicFragment : Fragment() {
         db: DatabseHelper
 
     ) {
-        var list1: List<ResultX1>
+        var list1: List<ResultMusicModel>
         ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getClassicMusic()
-            .enqueue(object : Callback<ClassicMusicModel> {
+            .enqueue(object : Callback<MusicModel> {
 
                 override fun onResponse(
-                    call: Call<ClassicMusicModel>,
-                    response: Response<ClassicMusicModel>
+                    call: Call<MusicModel>,
+                    response: Response<MusicModel>
                 ) {
                     if (response.isSuccessful) {
 
@@ -99,7 +101,7 @@ class ClassicFragment : Fragment() {
                                 "Classic",
                                 list1.get(i).artistName,
                                 list1.get(i).collectionName,
-                                list1.get(i).artworkUrl60,
+                                list1.get(i).artworkUrl100,
                                 list1.get(i).trackPrice.toString(),
                                 list1.get(i).previewUrl
                             )
@@ -110,7 +112,7 @@ class ClassicFragment : Fragment() {
 
                 }
 
-                override fun onFailure(call: Call<ClassicMusicModel>, t: Throwable) {
+                override fun onFailure(call: Call<MusicModel>, t: Throwable) {
                     Toast.makeText(activity, "Error Occurred! " + t.message, Toast.LENGTH_LONG)
                         .show()
                 }

@@ -1,11 +1,15 @@
 package com.example.poonamtiwari_itunes.model
 
-data class DBModel(
+data class MusicModel (
+    val resultCount: Int,
+    val results: List<ResultMusicModel>
+    )
+
+data class ResultMusicModel(
     val trackName:String,
     val artistName:String,
     val collectionName:String,
-    val artworkUrl60:String,
-
+    val artworkUrl100:String,
     val trackPrice:Double,
     val previewUrl:String
 )
