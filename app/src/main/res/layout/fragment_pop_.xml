@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.Pop_Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
 
 
     <androidx.recyclerview.widget.RecyclerView

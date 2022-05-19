@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     companion object {
-        private var mediaPlayer = MediaPlayer()
+         var mediaPlayer = MediaPlayer()
 
 
         fun playSong(url: String) {
@@ -68,17 +68,10 @@ class MainActivity : AppCompatActivity() {
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
             if (capabilities != null) {
                 if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    Toast.makeText(
-                        context,
-                        "NetworkCapabilities.TRANSPORT_CELLULAR",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    //  Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+
                     return true
                 } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    Toast.makeText(context, "NetworkCapabilities.TRANSPORT_WIFI", Toast.LENGTH_LONG)
-                        .show()
-                    //Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+
                     return true
                 }
 

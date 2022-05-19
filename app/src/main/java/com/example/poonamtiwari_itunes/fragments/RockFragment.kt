@@ -13,14 +13,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.poonamtiwari_itunes.R
 import com.example.poonamtiwari_itunes.api.ApiServiceClassic
 import com.example.poonamtiwari_itunes.database.DatabseHelper
-import com.example.poonamtiwari_itunes.model.PopMusicModel
-import com.example.poonamtiwari_itunes.model.Result1
-import com.example.poonamtiwari_itunes.model.ResultXX1
-
-import com.example.poonamtiwari_itunes.model.RockMusicModel
+import com.example.poonamtiwari_itunes.model.MusicModel
+import com.example.poonamtiwari_itunes.model.ResultMusicModel
 import com.example.poonamtiwari_itunes.view.MainActivity
-
-import com.example.poonamtiwari_itunes.view.RockMusicAdapter
+import com.example.poonamtiwari_itunes.view.MusicAdapter
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -59,14 +55,13 @@ class RockFragment : Fragment() {
         val rvrock: RecyclerView = view.findViewById(R.id.rv_Rock)
         val swipeRock: SwipeRefreshLayout = view.findViewById(R.id.swipe_Rock)
         val db: DatabseHelper = DatabseHelper(requireContext())
-        val musicAdapter1: RockMusicAdapter
+        val musicAdapter1: MusicAdapter
 
         rvrock.layoutManager = LinearLayoutManager(activity)
 
         // startRetrofit(db)
-        restoreData()
         val listROCK = db.retrivePopMusic("Rock")
-        musicAdapter1 = RockMusicAdapter(listROCK)
+        musicAdapter1 = MusicAdapter(listROCK)
         rvrock.adapter = musicAdapter1
 
         swipeRock.setOnRefreshListener {
@@ -84,13 +79,13 @@ class RockFragment : Fragment() {
         db: DatabseHelper)
 
        {
-        var list1: List<Result1>
+        var list1: List<ResultMusicModel>
         ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getRockMusic()
-            .enqueue(object : Callback<RockMusicModel> {
+            .enqueue(object : Callback<MusicModel> {
 
                 override fun onResponse(
-                    call: Call<RockMusicModel>,
-                    response: Response<RockMusicModel>
+                    call: Call<MusicModel>,
+                    response: Response<MusicModel>
                 ) {
                     if (response.isSuccessful) {
 
@@ -102,7 +97,7 @@ class RockFragment : Fragment() {
                                 "Rock",
                                 list1.get(i).artistName,
                                 list1.get(i).collectionName,
-                                list1.get(i).artworkUrl60,
+                                list1.get(i).artworkUrl100,
                                 list1.get(i).trackPrice.toString(),
                                 list1.get(i).previewUrl
                             )
@@ -112,32 +107,8 @@ class RockFragment : Fragment() {
 
                 }
 
-
-                override fun onFailure(call: Call<RockMusicModel>, t: Throwable) {
-                    Toast.makeText(activity, t.message, Toast.LENGTH_LONG).show()
-                }
-
-            })
-    }
-    fun restoreData() {
-        var list1: List<Result1>
-        ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getRockMusic()
-            .enqueue(object : Callback<RockMusicModel> {
-
-                override fun onResponse(
-                    call: Call<RockMusicModel>,
-                    response: Response<RockMusicModel>
-                ) {
-                    if (response.isSuccessful) {
-                        list1 = response.body()!!.results
-                    }
-
-                }
-
-
-
-                override fun onFailure(call: Call<RockMusicModel>, t: Throwable) {
-                    Toast.makeText(activity, "Error Occurred! " + t.message, Toast.LENGTH_LONG).show()
+                override fun onFailure(call: Call<MusicModel>, t: Throwable) {
+                    Toast.makeText(activity, "Error Occurred! " +t.message, Toast.LENGTH_LONG).show()
                 }
 
             })
@@ -163,28 +134,5 @@ class RockFragment : Fragment() {
             }
     }
 
-//    private fun startRetrofit() {
-//
-//        ApiService.createRetrofit().create(ApiService::class.java).getAllSongs()
-//            .enqueue(object : Callback<RockMusicModel> {
-//                override fun onResponse(
-//                    call: Call<RockMusicModel>,
-//                    response: Response<RockMusicModel>
-//                ) {
-//
-//                    if (response.isSuccessful) {
-//                        // list = response.body()!!.results
-////                        musicAdapter = MusicAdapter(response.body()!!.results)
-////                        rvMusicList.adapter = musicAdapter
-//                    }
-//                }
-//
-//
-//                override fun onFailure(call: Call<RockMusicModel>, t: Throwable) {
-//
-//                }
-//
-//            })
-//        //  return list
-//    }
+
 }

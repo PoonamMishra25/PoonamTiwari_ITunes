@@ -12,10 +12,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.poonamtiwari_itunes.R
 import com.example.poonamtiwari_itunes.api.ApiServiceClassic
 import com.example.poonamtiwari_itunes.database.DatabseHelper
-import com.example.poonamtiwari_itunes.model.PopMusicModel
-import com.example.poonamtiwari_itunes.model.ResultXX1
+import com.example.poonamtiwari_itunes.model.MusicModel
+
+import com.example.poonamtiwari_itunes.model.ResultMusicModel
+
 import com.example.poonamtiwari_itunes.view.MainActivity
-import com.example.poonamtiwari_itunes.view.PopMusicAdapter
+import com.example.poonamtiwari_itunes.view.MusicAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,8 +33,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class Pop_Fragment : Fragment() {
-
-
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -43,7 +43,6 @@ class Pop_Fragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-       // startRetrofitpop(db )
     }
 
     override fun onCreateView(
@@ -53,13 +52,14 @@ class Pop_Fragment : Fragment() {
         val view=inflater.inflate(R.layout.fragment_pop_, container, false)
         val rvPop: RecyclerView =view.findViewById(R.id.rv_pop)
         val swipePop:SwipeRefreshLayout=view.findViewById(R.id.swipe_Pop)
-        val musicAdapter2: PopMusicAdapter
+       // val musicAdapter2: PopMusicAdapter
+        val musicAdapter2:MusicAdapter
         val db:DatabseHelper= DatabseHelper(requireContext())
 
         rvPop.layoutManager= LinearLayoutManager(activity)
-restoreData()
+
         val listPop=db.retrivePopMusic("Pop")
-        musicAdapter2 = PopMusicAdapter(listPop)
+        musicAdapter2 = MusicAdapter(listPop)
         rvPop.adapter = musicAdapter2
 //swipe listener
         swipePop.setOnRefreshListener {
@@ -79,13 +79,13 @@ restoreData()
         db: DatabseHelper
 
     ) {
-        var list1: List<ResultXX1> //= ArrayList()
+        var list1: List<ResultMusicModel> //= ArrayList()
         ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getPopMusic()
-            .enqueue(object : Callback<PopMusicModel> {
+            .enqueue(object : Callback<MusicModel> {
 
                 override fun onResponse(
-                    call: Call<PopMusicModel>,
-                    response: Response<PopMusicModel>
+                    call: Call<MusicModel>,
+                    response: Response<MusicModel>
                 ) {
                     if (response.isSuccessful) {
 
@@ -96,7 +96,7 @@ restoreData()
                                 "Pop",
                                 list1.get(i).artistName,
                                 list1.get(i).collectionName,
-                                list1.get(i).artworkUrl60,
+                                list1.get(i).artworkUrl100,
                                 list1.get(i).trackPrice.toString(),
                                 list1.get(i).previewUrl
                             )
@@ -107,33 +107,15 @@ restoreData()
 
                 }
 
-                override fun onFailure(call: Call<PopMusicModel>, t: Throwable) {
+
+
+                override fun onFailure(call: Call<MusicModel>, t: Throwable) {
                     Toast.makeText(activity, "Error Occurred! " +t.message, Toast.LENGTH_LONG).show()
                 }
 
             })
     }
-fun restoreData() {
-    var list1: List<ResultXX1>
-    ApiServiceClassic.createRetrofit().create(ApiServiceClassic::class.java).getPopMusic()
-        .enqueue(object : Callback<PopMusicModel> {
 
-            override fun onResponse(
-                call: Call<PopMusicModel>,
-                response: Response<PopMusicModel>
-            ) {
-                if (response.isSuccessful) {
-                    list1 = response.body()!!.results
-                }
-
-            }
-
-            override fun onFailure(call: Call<PopMusicModel>, t: Throwable) {
-                Toast.makeText(activity, "Error Occurred! " + t.message, Toast.LENGTH_LONG).show()
-            }
-
-        })
-}
     companion object {
         /**
          * Use this factory method to create a new instance of

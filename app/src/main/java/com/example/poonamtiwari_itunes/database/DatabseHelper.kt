@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.poonamtiwari_itunes.model.DBModel
+import com.example.poonamtiwari_itunes.model.ResultMusicModel
 
 class DatabseHelper(context:Context):SQLiteOpenHelper(
     context,DATABASE_NAME,null,DATABAE_VERSION)
@@ -56,8 +56,8 @@ class DatabseHelper(context:Context):SQLiteOpenHelper(
         //db.close() // Closing database connection
 
     }
-    fun retrivePopMusic(typeMusic:String):List<DBModel>{
-        val popList:ArrayList<DBModel> = ArrayList()
+    fun retrivePopMusic(typeMusic:String):List<ResultMusicModel>{
+        val popList:ArrayList<ResultMusicModel> = ArrayList()
         val query="select * from "+ Table_name+" where SongType = '"+ typeMusic+"'"
         val db=this.readableDatabase
         val cursor:Cursor
@@ -71,7 +71,7 @@ class DatabseHelper(context:Context):SQLiteOpenHelper(
                 var artWork:String=cursor.getString(4)
                 var trackPrice1:Double=cursor.getDouble(5)
                 var preview:String=cursor.getString(6)
-                val result=DBModel(trackName=type,artistName=artist,collectionName=collection,artworkUrl60 =artWork,trackPrice=trackPrice1 ,previewUrl=preview)
+                val result=ResultMusicModel(trackName=type,artistName=artist,collectionName=collection,artworkUrl100 =artWork,trackPrice=trackPrice1 ,previewUrl=preview)
                 popList.add(result)
             }while (cursor.moveToNext())
         }
@@ -91,18 +91,6 @@ class DatabseHelper(context:Context):SQLiteOpenHelper(
                 }
 
     }
-fun countAll(songType:String):Int{
-    var totalCount:Int=0
-    val db=this.readableDatabase
-    val query ="select count(*) from "+ Table_name+" where SongType = '"+ songType+"'"
-    val cursor:Cursor
-    cursor =db.rawQuery(query,null)
-    if(cursor.moveToFirst()) {
-        do {
-           totalCount++
-        } while (cursor.moveToNext())
-    }
-    return totalCount
-}
+
 
 }
